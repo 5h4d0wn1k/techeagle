@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Remove output: 'export' for Vercel deployment
   images: { unoptimized: true },
   eslint: {
     ignoreDuringBuilds: true,

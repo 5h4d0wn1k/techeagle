@@ -1,9 +1,23 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Rocket, ArrowRight } from "lucide-react"
 
 export function Hero() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const offset = 80
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
-    <div className="relative overflow-hidden">
+    <div id="hero" className="relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/10" />
       <div className="relative">
         <div className="container flex flex-col items-center justify-center space-y-4 px-4 py-16 text-center sm:px-6 sm:py-24 md:py-32 lg:py-40">
@@ -21,11 +35,20 @@ export function Hero() {
             space travel.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-            <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-500">
+            <Button 
+              size="lg" 
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-500"
+              onClick={() => scrollToSection('vision')}
+            >
               Explore Our Vision
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="w-full sm:w-auto"
+              onClick={() => scrollToSection('contact')}
+            >
               Partner With Us
               <Rocket className="ml-2 h-4 w-4" />
             </Button>

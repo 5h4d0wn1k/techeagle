@@ -16,13 +16,25 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
-        <Features />
-        <Vision />
+        <div id="solutions">
+          <Features />
+        </div>
+        <div id="vision">
+          <Vision />
+        </div>
         <Divisions />
-        <Research />
-        <Innovation />
-        <GlobalPresence />
-        <Partnerships />
+        <div id="research">
+          <Research />
+        </div>
+        <div id="innovation">
+          <Innovation />
+        </div>
+        <div id="global">
+          <GlobalPresence />
+        </div>
+        <div id="partners">
+          <Partnerships />
+        </div>
         <Timeline />
         <Contact />
       </main>

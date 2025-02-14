@@ -5,9 +5,12 @@ import { Menu, PlaneTakeoff } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = React.useState(false)
+  const pathname = usePathname()
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -17,23 +20,45 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const scrollToSection = (sectionId: string) => {
+    if (pathname !== "/") {
+      window.location.href = `/#${sectionId}`
+      return
+    }
+    
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const offset = 80
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <header className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all ${
       isScrolled ? "shadow-md" : ""
     }`}>
       <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center space-x-2">
           <PlaneTakeoff className="h-6 w-6 text-primary" />
           <span className="text-xl font-bold">TechEagle</span>
-        </div>
+        </Link>
         <div className="hidden md:flex items-center space-x-6">
           <nav className="flex items-center space-x-4">
-            <Button variant="ghost">Solutions</Button>
-            <Button variant="ghost">Research</Button>
-            <Button variant="ghost">Innovation</Button>
-            <Button variant="ghost">Global</Button>
-            <Button variant="ghost">Partners</Button>
-            <Button variant="ghost">Contact</Button>
+            <Link href="/solutions">
+              <Button variant="ghost">Solutions</Button>
+            </Link>
+            <Button variant="ghost" onClick={() => scrollToSection('research')}>Research</Button>
+            <Button variant="ghost" onClick={() => scrollToSection('innovation')}>Innovation</Button>
+            <Button variant="ghost" onClick={() => scrollToSection('global')}>Global</Button>
+            <Button variant="ghost" onClick={() => scrollToSection('partners')}>Partners</Button>
+            <Link href="/careers">
+              <Button variant="ghost">Careers</Button>
+            </Link>
+            <Button variant="ghost" onClick={() => scrollToSection('contact')}>Contact</Button>
           </nav>
           <ModeToggle />
         </div>
@@ -47,12 +72,17 @@ export function Navigation() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col space-y-4 mt-8">
-                <Button variant="ghost" className="justify-start">Solutions</Button>
-                <Button variant="ghost" className="justify-start">Research</Button>
-                <Button variant="ghost" className="justify-start">Innovation</Button>
-                <Button variant="ghost" className="justify-start">Global</Button>
-                <Button variant="ghost" className="justify-start">Partners</Button>
-                <Button variant="ghost" className="justify-start">Contact</Button>
+                <Link href="/solutions">
+                  <Button variant="ghost" className="w-full justify-start">Solutions</Button>
+                </Link>
+                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('research')}>Research</Button>
+                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('innovation')}>Innovation</Button>
+                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('global')}>Global</Button>
+                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('partners')}>Partners</Button>
+                <Link href="/careers">
+                  <Button variant="ghost" className="w-full justify-start">Careers</Button>
+                </Link>
+                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection('contact')}>Contact</Button>
               </nav>
             </SheetContent>
           </Sheet>
