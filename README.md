@@ -76,5 +76,5 @@ default branch and follow the existing component conventions in
 
 ## License
 
-No license file is present in this repository; all rights reserved by the
-client/project owner until a license is added.
+Proprietary - see LICENSE
+
